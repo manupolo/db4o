@@ -5,6 +5,9 @@
  */
 package db4o;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
@@ -14,8 +17,13 @@ public class vista extends javax.swing.JFrame {
     /**
      * Creates new form vista
      */
+    
+    facadeCantante fc = new facadeCantante();
+    
     public vista() {
         initComponents();
+        setLocationRelativeTo(null);
+        tablaCantantes.setModel(fc.getCantantes());       
     }
 
     /**
@@ -30,16 +38,16 @@ public class vista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaCantantes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtCantanteNombre = new javax.swing.JTextField();
+        txtCantanteEstilo = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCantanteNuevo = new javax.swing.JButton();
+        btnCantanteEliminar = new javax.swing.JButton();
+        btnCantanteModificar = new javax.swing.JButton();
+        btnCantanteGuardar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
@@ -70,18 +78,20 @@ public class vista extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantantes"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCantantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Estilo"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tablaCantantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCantantesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tablaCantantes);
 
         jLabel1.setText("Nombre: ");
 
@@ -89,13 +99,33 @@ public class vista extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Nuevo");
+        btnCantanteNuevo.setText("Nuevo");
 
-        jButton2.setText("Eliminar");
+        btnCantanteEliminar.setText("Eliminar");
+        btnCantanteEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCantanteEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Modificar");
+        btnCantanteModificar.setText("Modificar");
+        btnCantanteModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCantanteModificarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Guardar");
+        btnCantanteGuardar.setText("Guardar");
+        btnCantanteGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCantanteGuardarMouseClicked(evt);
+            }
+        });
+        btnCantanteGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCantanteGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -103,13 +133,13 @@ public class vista extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCantanteNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCantanteGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCantanteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCantanteEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -117,10 +147,10 @@ public class vista extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnCantanteNuevo)
+                    .addComponent(btnCantanteEliminar)
+                    .addComponent(btnCantanteModificar)
+                    .addComponent(btnCantanteGuardar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -139,8 +169,8 @@ public class vista extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2))))
+                            .addComponent(txtCantanteNombre)
+                            .addComponent(txtCantanteEstilo))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -149,11 +179,11 @@ public class vista extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantanteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantanteEstilo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -207,13 +237,10 @@ public class vista extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Título", "Cantante", "Duración"
             }
         ));
         jScrollPane3.setViewportView(jTable3);
@@ -279,7 +306,7 @@ public class vista extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cancion", "Cantante", "Estilo", "Duracion"
             }
         ));
         jScrollPane4.setViewportView(jTable4);
@@ -375,6 +402,80 @@ public class vista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCantanteGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCantanteGuardarActionPerformed
+        //Boton Guardar Cantante
+        String nombre = txtCantanteNombre.getText();
+        String estilo = txtCantanteEstilo.getText();
+        boolean comp = false;
+        int fila = tablaCantantes.getRowCount();
+        
+        for(int i=0; i<fila; i++){
+                    String nom = String.valueOf(tablaCantantes.getValueAt(i, 0));
+                    System.out.println("El nombre del cantante es " + nom); 
+                    
+                    if(nom.equalsIgnoreCase(nombre)){
+                        comp = true;
+                    }
+        }
+        
+        if(comp){
+            JOptionPane.showMessageDialog(null, "El cantante ya existe");
+        }else{
+            fc.añadirCantante(nombre, estilo);
+        
+            tablaCantantes.setModel(fc.getCantantes());
+        }
+        
+    }//GEN-LAST:event_btnCantanteGuardarActionPerformed
+
+    private void btnCantanteGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCantanteGuardarMouseClicked
+        
+    }//GEN-LAST:event_btnCantanteGuardarMouseClicked
+
+    private void tablaCantantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCantantesMouseClicked
+        //Tabla cantantes
+        String nombre = "";
+        String estilo = "";
+        
+        
+        int fila;
+        
+        fila = this.tablaCantantes.rowAtPoint(evt.getPoint());
+            if (fila > -1){                
+               nombre = ( String.valueOf( this.tablaCantantes.getValueAt(fila, 0) ));
+               estilo = ( String.valueOf( this.tablaCantantes.getValueAt(fila, 1) ));
+            }
+            
+            txtCantanteNombre.setText(nombre);
+            txtCantanteEstilo.setText(estilo);
+    }//GEN-LAST:event_tablaCantantesMouseClicked
+
+    private void btnCantanteModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCantanteModificarActionPerformed
+        //Boton modificar cantante
+        String nombre = txtCantanteNombre.getText();
+        String estilo = txtCantanteEstilo.getText();
+        
+        if(txtCantanteNombre.getText().isEmpty() || txtCantanteEstilo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Rellena todos los campos");
+        }else{
+            fc.modificarCantante(nombre, estilo);
+            tablaCantantes.setModel(fc.getCantantes());
+        }
+        
+    }//GEN-LAST:event_btnCantanteModificarActionPerformed
+
+    private void btnCantanteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCantanteEliminarActionPerformed
+        //Boton eliminar cantante
+        String nombre = txtCantanteNombre.getText();
+        
+        if(txtCantanteNombre.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Indica el nombre del cantante que desea borrar");
+        }else{
+            fc.eliminarCantante(nombre);
+            tablaCantantes.setModel(fc.getCantantes());
+        }
+    }//GEN-LAST:event_btnCantanteEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -411,11 +512,11 @@ public class vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCantanteEliminar;
+    private javax.swing.JButton btnCantanteGuardar;
+    private javax.swing.JButton btnCantanteModificar;
+    private javax.swing.JButton btnCantanteNuevo;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -438,16 +539,16 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable tablaCantantes;
+    private javax.swing.JTextField txtCantanteEstilo;
+    private javax.swing.JTextField txtCantanteNombre;
     // End of variables declaration//GEN-END:variables
 }
