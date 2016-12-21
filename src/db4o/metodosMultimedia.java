@@ -59,8 +59,7 @@ public class metodosMultimedia {
                 return false;
             }
         };
-        Double dur = Double.parseDouble(duracion);
-        Double dur2 = Double.parseDouble(duracion2);
+        
         
         String[] columns = {"Título", "Cantante", "Duracción"};
         dtm.setColumnIdentifiers(columns);

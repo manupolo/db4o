@@ -64,7 +64,6 @@ public class vista extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCancionTitulo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCancionDuracion = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         btnCancionNuevo = new javax.swing.JButton();
         btnCancionEliminar = new javax.swing.JButton();
@@ -75,6 +74,7 @@ public class vista extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtCancionCantante = new javax.swing.JTextField();
         btnCancionBuscarCantante = new javax.swing.JButton();
+        txtCancionDuracion = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaMultimedia = new javax.swing.JTable();
@@ -358,6 +358,12 @@ public class vista extends javax.swing.JFrame {
             }
         });
 
+        try {
+            txtCancionDuracion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -380,8 +386,8 @@ public class vista extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCancionDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnCancionBuscarCantante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txtCancionDuracion))
+                            .addComponent(btnCancionBuscarCantante, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -395,9 +401,9 @@ public class vista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtCancionDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtCancionTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCancionTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCancionDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -459,9 +465,9 @@ public class vista extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscarCantante, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(radioCantante)
-                        .addGap(22, 22, 22)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscarDuracion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -481,17 +487,18 @@ public class vista extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtBuscarCantante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtBuscarDuracion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuscarDuracion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(btnBuscarSoda)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(txtBuscarCantante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)
+                        .addComponent(txtBuscarDuracion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscarDuracion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addComponent(btnBuscarSoda)
+                        .addComponent(btnBuscarLimpiar))
                     .addComponent(radioCantante)
-                    .addComponent(radioDuracion)
-                    .addComponent(btnBuscarLimpiar))
+                    .addComponent(radioDuracion))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -649,6 +656,7 @@ public class vista extends javax.swing.JFrame {
         }else{
             fCancion.modificarCancion(tituloCancion, titulo, nomCantante, duracion);
             tablaCanciones.setModel(fCancion.getCanciones());
+            tablaMultimedia.setModel(fCancion.getCanciones());
         }
     }//GEN-LAST:event_btnCancionModificarActionPerformed
 
@@ -734,7 +742,7 @@ public class vista extends javax.swing.JFrame {
             tablaMultimedia.setModel(fm.getCancionesCantante(txtBuscarCantante.getText()));
             
         }else if(radioDuracion.isSelected()){
-            tablaMultimedia.setModel(fm.getCancionesDuracion(txtBuscarDuracion1.getText(), txtBuscarDuracion2.getText()));
+            tablaMultimedia.setModel(fm.getCancionesDuracion(txtBuscarDuracion2.getText(), txtBuscarDuracion1.getText()));
             
         }else{
             JOptionPane.showMessageDialog(null, "Selecciona alguna opción");
@@ -824,7 +832,7 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscarDuracion1;
     private javax.swing.JTextField txtBuscarDuracion2;
     private javax.swing.JTextField txtCancionCantante;
-    private javax.swing.JTextField txtCancionDuracion;
+    private javax.swing.JFormattedTextField txtCancionDuracion;
     private javax.swing.JTextField txtCancionTitulo;
     private javax.swing.JTextField txtCantanteEstilo;
     private javax.swing.JTextField txtCantanteNombre;
