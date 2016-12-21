@@ -18,15 +18,18 @@ public class vista extends javax.swing.JFrame {
      * Creates new form vista
      */
     String tituloCancion;
+    String buscarCantante;
     
     facadeCantante fc = new facadeCantante();
     facadeCancion fCancion = new facadeCancion();
+    facadeMultimedia fm = new facadeMultimedia();
     
     public vista() {
         initComponents();
         setLocationRelativeTo(null);
         tablaCantantes.setModel(fc.getCantantes());   
         tablaCanciones.setModel(fCancion.getCanciones());
+        tablaMultimedia.setModel(fCancion.getCanciones());
     }
 
     /**
@@ -38,6 +41,12 @@ public class vista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        diaBuscarCantante = new javax.swing.JDialog();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaBuscarCantante = new javax.swing.JTable();
+        btnCancionBuscar = new javax.swing.JButton();
+        radioGrBuscar = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -68,14 +77,74 @@ public class vista extends javax.swing.JFrame {
         btnCancionBuscarCantante = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tablaMultimedia = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtBuscarCantante = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        txtBuscarDuracion1 = new javax.swing.JTextField();
+        txtBuscarDuracion2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
+        btnBuscarSoda = new javax.swing.JButton();
+        radioCantante = new javax.swing.JRadioButton();
+        radioDuracion = new javax.swing.JRadioButton();
+        btnBuscarLimpiar = new javax.swing.JButton();
+
+        tablaBuscarCantante.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaBuscarCantante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaBuscarCantanteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaBuscarCantante);
+
+        btnCancionBuscar.setText("Añadir");
+        btnCancionBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancionBuscarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnCancionBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCancionBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout diaBuscarCantanteLayout = new javax.swing.GroupLayout(diaBuscarCantante.getContentPane());
+        diaBuscarCantante.getContentPane().setLayout(diaBuscarCantanteLayout);
+        diaBuscarCantanteLayout.setHorizontalGroup(
+            diaBuscarCantanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        diaBuscarCantanteLayout.setVerticalGroup(
+            diaBuscarCantanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +172,11 @@ public class vista extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnCantanteNuevo.setText("Nuevo");
+        btnCantanteNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCantanteNuevoActionPerformed(evt);
+            }
+        });
 
         btnCantanteEliminar.setText("Eliminar");
         btnCantanteEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -204,6 +278,11 @@ public class vista extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnCancionNuevo.setText("Nuevo");
+        btnCancionNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancionNuevoActionPerformed(evt);
+            }
+        });
 
         btnCancionEliminar.setText("Eliminar");
         btnCancionEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +349,14 @@ public class vista extends javax.swing.JFrame {
 
         jLabel5.setText("Cantante:");
 
+        txtCancionCantante.setEditable(false);
+
         btnCancionBuscarCantante.setText("Search");
+        btnCancionBuscarCantante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancionBuscarCantanteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -321,7 +407,7 @@ public class vista extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Biblioteca Multimedia"));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMultimedia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -332,7 +418,7 @@ public class vista extends javax.swing.JFrame {
                 "Cancion", "Cantante", "Estilo", "Duracion"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(tablaMultimedia);
 
         jLabel6.setText("Introduce Cantante: ");
 
@@ -340,32 +426,56 @@ public class vista extends javax.swing.JFrame {
 
         jLabel8.setText("-");
 
-        jButton10.setText("Search");
+        btnBuscarSoda.setText("Search");
+        btnBuscarSoda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarSodaActionPerformed(evt);
+            }
+        });
+
+        radioGrBuscar.add(radioCantante);
+        radioCantante.setSelected(true);
+
+        radioGrBuscar.add(radioDuracion);
+
+        btnBuscarLimpiar.setText("Limpiar Busqueda");
+        btnBuscarLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarCantante, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioCantante)
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarDuracion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarDuracion2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioDuracion)
+                        .addGap(21, 21, 21)
+                        .addComponent(btnBuscarSoda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscarLimpiar)))
                 .addContainerGap())
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,12 +483,15 @@ public class vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarCantante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarDuracion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarDuracion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jButton10))
+                    .addComponent(btnBuscarSoda)
+                    .addComponent(radioCantante)
+                    .addComponent(radioDuracion)
+                    .addComponent(btnBuscarLimpiar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -521,6 +634,7 @@ public class vista extends javax.swing.JFrame {
             fCancion.añadirCancion(titulo, nomCantante, duracion);
         
             tablaCanciones.setModel(fCancion.getCanciones());
+            tablaMultimedia.setModel(fCancion.getCanciones());
         }
     }//GEN-LAST:event_btnCancionGuardarActionPerformed
 
@@ -560,16 +674,76 @@ public class vista extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaCancionesMouseClicked
 
     private void btnCancionEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancionEliminarActionPerformed
-        //Boton eliminar cantante
-        String nombre = txtCantanteNombre.getText();
+        //Boton eliminar cancion
+        String titulo = txtCancionTitulo.getText();
         
-        if(txtCantanteNombre.getText().isEmpty()){
+        if(txtCancionTitulo.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Indica el nombre de la cancion que desea borrar");
         }else{
-            fc.eliminarCantante(nombre);
-            tablaCantantes.setModel(fc.getCantantes());
+            fCancion.eliminarCancion(titulo);
+            tablaCanciones.setModel(fCancion.getCanciones());
         }
     }//GEN-LAST:event_btnCancionEliminarActionPerformed
+
+    private void btnCancionNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancionNuevoActionPerformed
+        //Nueva cancion
+        txtCancionCantante.setText("");
+        txtCancionTitulo.setText("");
+        txtCancionDuracion.setText("");
+    }//GEN-LAST:event_btnCancionNuevoActionPerformed
+
+    private void tablaBuscarCantanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaBuscarCantanteMouseClicked
+        //Tabla buscar cantantes   
+        
+        int fila;
+        
+        fila = this.tablaBuscarCantante.rowAtPoint(evt.getPoint());
+            if (fila > -1){                
+               buscarCantante = ( String.valueOf( this.tablaBuscarCantante.getValueAt(fila, 0) ));
+               
+            }
+            
+    }//GEN-LAST:event_tablaBuscarCantanteMouseClicked
+
+    private void btnCancionBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancionBuscarActionPerformed
+        //Añadir buscar cantante
+        txtCancionCantante.setText(buscarCantante);
+        diaBuscarCantante.dispose();
+    }//GEN-LAST:event_btnCancionBuscarActionPerformed
+
+    private void btnCancionBuscarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancionBuscarCantanteActionPerformed
+        //Buscar cantante
+        diaBuscarCantante.setVisible(true);
+        diaBuscarCantante.setSize(300, 250);
+        diaBuscarCantante.setLocationRelativeTo(null);
+        
+        tablaBuscarCantante.setModel(fc.getCantantes());
+    }//GEN-LAST:event_btnCancionBuscarCantanteActionPerformed
+
+    private void btnCantanteNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCantanteNuevoActionPerformed
+        // Nuevo Cantante
+        txtCantanteEstilo.setText("");
+        txtCantanteNombre.setText("");
+    }//GEN-LAST:event_btnCantanteNuevoActionPerformed
+
+    private void btnBuscarSodaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarSodaActionPerformed
+        //Busqueda Soda
+        
+        //Si tenemos seleccionado el radiobuton cantante tomara el txt cantante
+        if(radioCantante.isSelected()){
+            tablaMultimedia.setModel(fm.getCancionesCantante(txtBuscarCantante.getText()));
+            
+        }else if(radioDuracion.isSelected()){
+            tablaMultimedia.setModel(fm.getCancionesDuracion(txtBuscarDuracion1.getText(), txtBuscarDuracion2.getText()));
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecciona alguna opción");
+        }
+    }//GEN-LAST:event_btnBuscarSodaActionPerformed
+
+    private void btnBuscarLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLimpiarActionPerformed
+        tablaMultimedia.setModel(fCancion.getCanciones());
+    }//GEN-LAST:event_btnBuscarLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -607,6 +781,9 @@ public class vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarLimpiar;
+    private javax.swing.JButton btnBuscarSoda;
+    private javax.swing.JButton btnCancionBuscar;
     private javax.swing.JButton btnCancionBuscarCantante;
     private javax.swing.JButton btnCancionEliminar;
     private javax.swing.JButton btnCancionGuardar;
@@ -616,7 +793,7 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JButton btnCantanteGuardar;
     private javax.swing.JButton btnCantanteModificar;
     private javax.swing.JButton btnCantanteNuevo;
-    private javax.swing.JButton jButton10;
+    private javax.swing.JDialog diaBuscarCantante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -631,15 +808,21 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JRadioButton radioCantante;
+    private javax.swing.JRadioButton radioDuracion;
+    private javax.swing.ButtonGroup radioGrBuscar;
+    private javax.swing.JTable tablaBuscarCantante;
     private javax.swing.JTable tablaCanciones;
     private javax.swing.JTable tablaCantantes;
+    private javax.swing.JTable tablaMultimedia;
+    private javax.swing.JTextField txtBuscarCantante;
+    private javax.swing.JTextField txtBuscarDuracion1;
+    private javax.swing.JTextField txtBuscarDuracion2;
     private javax.swing.JTextField txtCancionCantante;
     private javax.swing.JTextField txtCancionDuracion;
     private javax.swing.JTextField txtCancionTitulo;
